@@ -1,13 +1,12 @@
 package com.github.JoaoRobrt.data.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Objects;
 
 @JsonPropertyOrder({"id", "firstName", "lastName", "address"})
-public class PersonDto extends RepresentationModel<PersonDto> {
+public class PersonDTO extends RepresentationModel<PersonDTO> {
 
     private Long id;
     private String firstName;
@@ -15,7 +14,7 @@ public class PersonDto extends RepresentationModel<PersonDto> {
     private String address;
     private String gender;
 
-    public PersonDto() {
+    public PersonDTO() {
     }
 
     public Long getId() {
@@ -62,7 +61,7 @@ public class PersonDto extends RepresentationModel<PersonDto> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDto personDto = (PersonDto) o;
+        PersonDTO personDto = (PersonDTO) o;
         return Objects.equals(id, personDto.id) && Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && Objects.equals(address, personDto.address) && Objects.equals(gender, personDto.gender);
     }
 
