@@ -3,11 +3,9 @@ package com.github.JoaoRobrt.services;
 import com.github.JoaoRobrt.exceptions.ResourceNotFoundException;
 import com.github.JoaoRobrt.models.Person;
 import com.github.JoaoRobrt.repositories.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -40,9 +38,9 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Person update(Person person){
+    public Person update(Person person, Long id){
         logger.info("Updating person!");
-        Person entity = findById(person.getId());
+        Person entity = findById(id);
 
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
