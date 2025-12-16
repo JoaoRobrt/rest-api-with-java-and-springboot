@@ -20,19 +20,19 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PersonDto>> getAllPersons() {
+    public ResponseEntity<List<PersonDto>> findAll() {
         List<PersonDto> foundedPersons = personService.findAll();
         return ResponseEntity.ok(foundedPersons);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonDto> getPersonById(@PathVariable("id") Long id) {
+    public ResponseEntity<PersonDto> findById(@PathVariable("id") Long id) {
         PersonDto foundedPerson = personService.findById(id);
         return ResponseEntity.ok(foundedPerson);
     }
 
     @PostMapping
-    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto) {
+    public ResponseEntity<PersonDto> create(@RequestBody PersonDto personDto) {
         PersonDto createdPersonDto = personService.create(personDto);
 
         URI location = ServletUriComponentsBuilder
@@ -45,13 +45,13 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDto> updatePerson(@RequestBody PersonDto personDto,@PathVariable("id") Long id) {
+    public ResponseEntity<PersonDto> update(@RequestBody PersonDto personDto, @PathVariable("id") Long id) {
         PersonDto updatedPersonDto = personService.update(personDto, id);
         return ResponseEntity.ok(updatedPersonDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePersonById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
     }

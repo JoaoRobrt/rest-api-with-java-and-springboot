@@ -1,9 +1,13 @@
 package com.github.JoaoRobrt.data.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-
-public class PersonDto {
+@JsonPropertyOrder({"id", "firstName", "lastName", "address"})
+public class PersonDto extends RepresentationModel<PersonDto> {
 
     private Long id;
     private String firstName;
@@ -26,16 +30,16 @@ public class PersonDto {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
     public String getAddress() {
@@ -58,8 +62,8 @@ public class PersonDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDto person = (PersonDto) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
+        PersonDto personDto = (PersonDto) o;
+        return Objects.equals(id, personDto.id) && Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && Objects.equals(address, personDto.address) && Objects.equals(gender, personDto.gender);
     }
 
     @Override
@@ -67,3 +71,4 @@ public class PersonDto {
         return Objects.hash(id, firstName, lastName, address, gender);
     }
 }
+
