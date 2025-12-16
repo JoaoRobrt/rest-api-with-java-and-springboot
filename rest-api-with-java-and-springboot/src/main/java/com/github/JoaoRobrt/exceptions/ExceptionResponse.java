@@ -1,4 +1,4 @@
-package com.github.JoaoRobrt.exception;
+package com.github.JoaoRobrt.exceptions;
 
 import java.util.Date;
 

@@ -1,9 +1,8 @@
-package com.github.JoaoRobrt.exception.handler;
+package com.github.JoaoRobrt.exceptions.handler;
 
-import com.github.JoaoRobrt.exception.ExceptionResponse;
-import com.github.JoaoRobrt.exception.ResourceNotFoundException;
+import com.github.JoaoRobrt.exceptions.ExceptionResponse;
+import com.github.JoaoRobrt.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
