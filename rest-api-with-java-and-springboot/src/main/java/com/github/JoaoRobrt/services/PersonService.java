@@ -1,59 +1,60 @@
 package com.github.JoaoRobrt.services;
 
+import com.github.JoaoRobrt.data.dtos.PersonDto;
 import com.github.JoaoRobrt.exceptions.ResourceNotFoundException;
+import com.github.JoaoRobrt.mappers.PersonMapper;
 import com.github.JoaoRobrt.models.Person;
 import com.github.JoaoRobrt.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 @Service
 public class PersonService {
 
-    private final AtomicLong counter = new AtomicLong();
-    private Logger logger = Logger.getLogger(this.getClass().getName());
-
+    private final PersonMapper personMapper;
     private final PersonRepository personRepository;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
 
-    public List<Person> findAll() {
-        logger.info("Finding all persons");
-        return personRepository.findAll();
-    }
-
-    public Person findById(long id) {
-        logger.info("Finding person by id: " + id);
-
+    private Person findEntityById(long id) {
         return personRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("No records for this ID"));
     }
 
-    public Person create(Person person) {
-        logger.info("Creating person: ");
-        return personRepository.save(person);
+    public List<PersonDto> findAll() {
+        List<Person> persons = personRepository.findAll();
+        return personMapper.toDtosList(persons);
     }
 
-    public Person update(Person person, Long id){
-        logger.info("Updating person!");
-        Person entity = findById(id);
+    public PersonDto findById(long id) {
+      Person person = findEntityById(id);
+      return personMapper.toDto(person);
+    }
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+    public PersonDto create(PersonDto personDto) {
+        Person savedEntity = personRepository.save(personMapper.toEntity(personDto));
+        return personMapper.toDto(savedEntity);
+    }
 
-        return personRepository.save(entity);
+    public PersonDto update(PersonDto personDto, Long id){
+        Person entity = findEntityById(id);
+
+        entity.setFirstName(personDto.getFirstName());
+        entity.setLastName(personDto.getLastName());
+        entity.setAddress(personDto.getAddress());
+        entity.setGender(personDto.getGender());
+
+        Person updatedEntity = personRepository.save(entity);
+
+        return personMapper.toDto(updatedEntity);
     }
 
     public void delete(long id) {
-        logger.info("Deleting person by id: ");
-
-        Person entity = findById(id);
+        Person entity = findEntityById(id);
         personRepository.delete(entity);
     }
 }

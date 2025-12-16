@@ -1,29 +1,17 @@
-package com.github.JoaoRobrt.models;
-
-import jakarta.persistence.*;
+package com.github.JoaoRobrt.data.dtos;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class PersonDto {
+
     private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-
-    @Column(nullable = false, length = 100)
     private String address;
-
-    @Column(nullable = false, length = 10)
     private String gender;
 
-    public Person() {
+    public PersonDto() {
     }
 
     public Long getId() {
@@ -70,7 +58,7 @@ public class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        PersonDto person = (PersonDto) o;
         return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
     }
 

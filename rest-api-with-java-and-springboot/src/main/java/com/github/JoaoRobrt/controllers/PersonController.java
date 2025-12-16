@@ -1,6 +1,6 @@
 package com.github.JoaoRobrt.controllers;
 
-import com.github.JoaoRobrt.models.Person;
+import com.github.JoaoRobrt.data.dtos.PersonDto;
 import com.github.JoaoRobrt.services.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,33 +20,34 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getAllPersons() {
-        List<Person> foundedPersons = personService.findAll();
+    public ResponseEntity<List<PersonDto>> getAllPersons() {
+        List<PersonDto> foundedPersons = personService.findAll();
         return ResponseEntity.ok(foundedPersons);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
-        Person foundedPerson = personService.findById(id);
+    public ResponseEntity<PersonDto> getPersonById(@PathVariable("id") Long id) {
+        PersonDto foundedPerson = personService.findById(id);
         return ResponseEntity.ok(foundedPerson);
     }
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        Person createdPerson = personService.create(person);
+    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto) {
+        PersonDto createdPersonDto = personService.create(personDto);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(createdPerson.getId()).toUri();
+                .buildAndExpand(createdPersonDto.getId())
+                .toUri();
 
-        return ResponseEntity.created(location).body(createdPerson);
+        return ResponseEntity.created(location).body(createdPersonDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@RequestBody Person person,@PathVariable("id") Long id) {
-        Person updatedPerson = personService.update(person, id);
-        return ResponseEntity.ok(updatedPerson);
+    public ResponseEntity<PersonDto> updatePerson(@RequestBody PersonDto personDto,@PathVariable("id") Long id) {
+        PersonDto updatedPersonDto = personService.update(personDto, id);
+        return ResponseEntity.ok(updatedPersonDto);
     }
 
     @DeleteMapping("/{id}")
