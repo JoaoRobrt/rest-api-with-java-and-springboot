@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -181,6 +180,8 @@ class PersonServiceTest {
                 .thenReturn(Optional.of(person));
 
         assertDoesNotThrow(() -> personService.delete(1L));
+        verify(personRepository, times(1)).findById(anyLong());
+        verify(personRepository, times(1)).delete(any(Person.class));
     }
     @Test
     void findAll() {
